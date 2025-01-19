@@ -48,3 +48,16 @@
 1. Clone repository ini:
    ```bash
    git clone https://github.com/username/website-kesehatan.git
+
+
+
+## 🎥 Video Penjelasan
+Untuk melihat video penjelasan proyek ini, kunjungi link berikut:
+YouTube - Website Kesehatan
+https://youtu.be/XPbG_5E6XQ0 
+
+## 🧑‍💻 Informasi Pengembang
+Nama: Husain Mulyansyah
+NIM: 23090078
+Mata Kuliah: PEMWEB
+Tugas: UAS Semester 3
