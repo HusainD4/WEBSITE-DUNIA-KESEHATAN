@@ -48,9 +48,6 @@
 1. Clone repository ini:
    ```bash
    git clone https://github.com/username/website-kesehatan.git
-
-
-
 ## 🎥 Video Penjelasan
 Untuk melihat video penjelasan proyek ini, kunjungi link berikut:
 YouTube - Website Kesehatan
