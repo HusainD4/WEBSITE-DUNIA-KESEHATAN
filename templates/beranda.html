@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Website Kesehatan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <header class="text-center py-5 bg-primary text-white">
+        <h1>Selamat Datang</h1>
+        <p>Tujuan saya adalah memberikan informasi tentang kesehatan, penyakit, dan cara hidup sehat.</p>
+    </header>
+
+    <main>
+        <!-- Berita Terbaru Section -->
+        <section id="berita-terbaru" class="container py-5">
+            <h2 class="text-primary"><i class="fas fa-newspaper"></i> Berita Terbaru</h2>
+            <div class="row">
+                {% for item in berita_terbaru %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.judul }}</h5>
+                                <p class="card-text">{{ item.isi[:100] }}...</p> <!-- Menampilkan 100 karakter pertama dari isi berita -->
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>Tidak ada berita terbaru.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Motivasi Hidup Sehat Section -->
+        <section id="motivasi" class="container py-5">
+     
+            <h2 class="text-success"><i class="fas fa-heartbeat"></i> Motivasi Hidup Sehat</h2>
+            <p class="lead">Kesehatan adalah investasi terbaik Anda untuk masa depan yang lebih baik.</p>
+        </section>
+
+
+
+        <!-- Berlangganan Section -->
+        <section id="berlangganan" class="container py-5">
+            <h2 class="text-warning"><i class="fas fa-bell"></i> Berlangganan</h2>
+            <div class="text-center my-4" style="padding-top: 10px;">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Website" class="img-fluid animated-logo" style="max-width: 110px;">
+            </div>  
+            <form action="/berlangganan" method="POST">
+                <div class="text-center">
+                    <input type="text" name="nama" class="form-control mb-3" placeholder="Nama Anda" required>
+                    <input type="email" name="email" class="form-control mb-3" placeholder="Email Anda" required>
+                    <button type="submit" class="btn btn-success">Berlangganan</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    {% include 'footer.html' %}
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

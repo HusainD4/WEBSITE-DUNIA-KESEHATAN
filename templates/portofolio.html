@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curriculum Vitae Husain Mulyansyah">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>CV - Husain Mulyansyah</title>
+
+    <style>
+        /* Reset dasar */
+body, h1, h2, p, ul, li, a, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ecf0f1;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 40px;
+    color: #2980b9;
+}
+
+.header .photo img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.bagian {
+    margin: 20px 0;
+}
+
+h2 {
+    font-size: 24px;
+    color: #3498db;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 10px;
+}
+
+p, ul, li {
+    font-size: 16px;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+.info {
+    font-weight: bold;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.footer a {
+    color: #7f8c8d;
+    text-decoration: none;
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.content {
+    z-index: 1;
+    text-align: center;
+    color: white;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.social-links a i {
+    margin-right: 5px;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.buttons button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.buttons button:hover {
+    background-color: #2980b9;
+}
+
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='img/awal.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Husain Mulyansyah</h1>
+                <p><span class="info"><i class="bi bi-telephone"></i> Telepon:</span> <a href="tel:+6282138434932">082138434932</a></p>
+                <p><span class="info"><i class="bi bi-envelope"></i> Email:</span> <a href="mailto:husainmulyansyah28@gmail.com">husainmulyansyah28@gmail.com</a></p>
+            </div>
+            <div class="photo">
+                <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="Foto Husain Mulyansyah">
+            </div>
+        </div>
+
+        <div class="bagian">
+            <h2><i class="bi bi-person"></i> Informasi Pribadi</h2>
+            <p><span class="info"><i class="bi bi-geo-alt"></i> Alamat:</span> Jl. Prof Buyahmaka No.57, Margadana</p>
+            <p><span class="info"><i class="bi bi-calendar"></i> Tanggal Lahir:</span> Tegal, 28 Oktober 2005</p>
+        </div>
+
+        <div class="bagian">
+            <h2><i class="bi bi-person-circle"></i> Profil</h2>
+            <p>Saya adalah mahasiswa Politeknik Harapan Bersama Tegal, jurusan D4 Teknik Informatika. Saya memiliki keterampilan di bidang fotografi, videografi, dan pemrograman. Saya memiliki ketertarikan mendalam pada bahasa pemrograman Kotlin.</p>
+        </div>
+
+        <div class="bagian-education">
+            <h2><i class="bi bi-mortarboard"></i> Pendidikan</h2>
+            <div class="pendidikan">
+                <h3><i class="bi bi-book"></i> SMP N 17 Tegal</h3>
+                <p>2017 - 2020</p>
+            </div>
+            <div class="pendidikan">
+                <h3><i class="bi bi-book"></i> SMA N 2 Tegal</h3>
+                <p>2020 - 2023, IPA</p>
+            </div>
+            <div class="pendidikan">
+                <h3><i class="bi bi-book"></i> Politeknik Harapan Bersama Tegal</h3>
+                <p>2023 - Sekarang, D4 Teknik Informatika</p>
+            </div>
+        </div>
+
+        <div class="bagian-experience">
+            <h2><i class="bi bi-briefcase"></i> Pengalaman</h2>
+            <ul>
+                <li><b><i class="bi bi-gear"></i> Pengelola / Manajer:</b> HSN Studio</li>
+                <li><b><i class="bi bi-calendar-event"></i> Ketua Pelaksana:</b> Event Pameran Diksar Rana 9 Tahun 2024</li>
+                <li><b><i class="bi bi-trophy"></i> Juara 1:</b> Lomba Videografi Tingkat Pelajar 2018</li>
+                <li><b><i class="bi bi-trophy"></i> Juara 2:</b> Lomba Videografi Tingkat Kota 2022</li>
+                <li><b><i class="bi bi-code"></i> Web Development:</b> Freelance perancangan website bisnis</li>
+            </ul>
+        </div>
+
+        <div class="bagian-skills">
+            <h2><i class="bi bi-lightbulb"></i> Keahlian</h2>
+            <ul>
+                <li><i class="bi bi-check-circle"></i> Analisis</li>
+                <li><i class="bi bi-check-circle"></i> Bahasa Pemrograman Kotlin</li>
+                <li><i class="bi bi-check-circle"></i> Fotografi & Videografi</li>
+                <li><i class="bi bi-check-circle"></i> Desain</li>
+            </ul>
+        </div>
+
+        <footer class="footer">
+            <div class="social-links">
+                <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://www.instagram.com/si.husen/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+            <p>&copy; UTS & UAS. HUSAIN MULYANSYAH (23090078).</p>
+        </footer>
+
+        <div class="buttons">
+            <button onclick="window.location.href='{{ url_for('beranda') }}'"><i class="bi bi-house"></i> Back to Home</button>
+        </div>
+    </div>
+</body>
+</html>

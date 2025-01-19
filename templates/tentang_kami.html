@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        /* Gaya umum untuk kontainer */
+        .info-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #d4d4d4;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-container h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        /* Gaya untuk setiap box informasi */
+        .info-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Warna latar belakang berbeda untuk setiap info */
+        .info-nama {
+            background-color: #ff6f61;
+        }
+
+        .info-nim {
+            background-color: #ffa600;
+        }
+
+        .info-jurusan {
+            background-color: #43aa8b;
+        }
+
+        .info-universitas {
+            background-color: #4d96ff;
+        }
+
+        .info-visi {
+            background-color: #ff7c43;
+        }
+
+        .info-misi {
+            background-color: #72b6f9;
+        }
+
+        .info-tujuan {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+
+    <!-- Konten utama -->
+    <div class="container">
+        <div class="info-container">
+            <h2>Tentang Kami</h2>
+
+            <div class="info-box info-nama">
+                <strong>Nama:</strong> Husain Mulyansyah
+            </div>
+
+            <div class="info-box info-nim">
+                <strong>NIM:</strong> 23090078
+            </div>
+
+            <div class="info-box info-jurusan">
+                <strong>Jurusan:</strong> Teknik Informatika
+            </div>
+
+            <div class="info-box info-universitas">
+                <strong>Universitas:</strong> POLITEKNIK HARAPAN BERSAMA TEGAL
+            </div>
+
+            <div class="info-box info-visi">
+                <strong>Visi:</strong> 
+                <p>Mewujudkan mahasiswa yang unggul dalam ilmu pengetahuan, teknologi, dan memiliki kompetensi di bidang teknik informatika. Menjadi pribadi yang berintegritas, kreatif, dan mampu berkontribusi dalam masyarakat.</p>
+            </div>
+
+            <div class="info-box info-misi">
+                <strong>Misi:</strong>
+                <ul>
+                    <li>Meningkatkan kemampuan analisis dan pengembangan teknologi informasi melalui pembelajaran berbasis praktik.</li>
+                    <li>Membangun karakter mahasiswa dengan sikap profesionalisme, tanggung jawab, dan semangat belajar.</li>
+                    <li>Mendorong inovasi dalam pengembangan perangkat lunak dan solusi teknologi berbasis kebutuhan masyarakat.</li>
+                </ul>
+            </div>
+
+            <div class="info-box info-tujuan">
+                <strong>Tujuan:</strong>
+                <p>Website ini bertujuan untuk memberikan informasi yang akurat dan bermanfaat bagi pengguna. Kami berkomitmen untuk terus meningkatkan kualitas konten dan layanan guna memenuhi kebutuhan pengunjung.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+</body>
+</html>

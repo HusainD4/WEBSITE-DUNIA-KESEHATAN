@@ -1,0 +1,509 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 10px auto;
+}
+/* Navbar Styles */
+.navbar {
+    background: linear-gradient(135deg, #00bcd4, #00796b);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0; /* Menghilangkan padding navbar */
+    margin: 0; /* Menghilangkan margin navbar */
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: column; /* Untuk membuat elemen vertikal */
+    align-items: flex-start; /* Elemen rata ke kiri */
+    gap: 0; /* Menghilangkan jarak antar item */
+    padding: 0; /* Menghilangkan padding di dalam nav */
+    margin: 0; /* Menghilangkan margin pada nav */
+    list-style: none; /* Menghapus bullet list */
+}
+
+.navbar-nav .nav-item {
+    margin: 0; /* Menghilangkan margin pada item nav */
+    padding: 0; /* Menghilangkan padding pada item nav */
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0; /* Menghilangkan padding pada link */
+    margin: 0; /* Menghilangkan margin pada link */
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f1c40f;
+}
+
+.navbar .dropdown-menu {
+    font-size: 0.9rem;
+    padding: 0; /* Menghilangkan padding pada dropdown */
+    margin: 0; /* Menghilangkan margin pada dropdown */
+}
+
+.navbar .dropdown-item {
+    padding: 0; /* Menghilangkan padding pada item dropdown */
+    margin: 0; /* Menghilangkan margin pada item dropdown */
+    line-height: 1.2; /* Mengatur tinggi garis */
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: #f1c40f;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(135deg, #00bcd4, #009688);
+    color: white;
+    text-align: center;
+    padding: 3rem 1rem;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+}
+
+/* Section Styles */
+section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 2rem;
+    color: #009688;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #007bff;
+    font-weight: bold;
+    
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    align-self: center;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Styles */
+.footer {
+    background: linear-gradient(135deg, #004d40, #00796b);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+    border-top: 4px solid #00bcd4;
+}
+
+.footer h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.footer p {
+    font-size: 1rem;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #f1c40f;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 15px;
+    background-color: #ffffff;
+}
+
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #009688;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #9affc7;
+}
+
+@media (max-width: 1169px) {
+    /* Navbar */
+    .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-nav .nav-link {
+        margin: 0.5rem 0;
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    /* Header */
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    /* Section Titles */
+    section h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Table */
+    table th, table td {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    /* Buttons */
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    /* Footer */
+    .footer h3 {
+        font-size: 1.4rem;
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 778px) {
+    /* Navbar */
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 0.85rem;
+    }
+
+    /* Header */
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    /* Cards and Content */
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+    }
+
+    /* Footer */
+    .footer h3 {
+        font-size: 1.2rem;
+    }
+
+    .footer p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Header */
+    header {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 0.8rem;
+    }
+
+    /* Buttons */
+    .btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 1rem 0.5rem;
+    }
+
+    .footer h3 {
+        font-size: 1rem;
+    }
+
+    .footer p {
+        font-size: 0.7rem;
+    }
+
+    .footer .social-media a {
+        font-size: 0.8rem;
+    }
+}
+@media (max-width: 411px) {
+    /* Navbar */
+    .navbar {
+        padding: 1rem; /* Kurangi padding untuk menghemat ruang */
+    }
+
+    .navbar-brand {
+        font-size: 1rem; /* Sesuaikan ukuran teks brand */
+    }
+
+    .navbar-nav {
+        flex-direction: column; /* Tampilkan menu secara vertikal */
+        align-items: flex-start;
+        gap: 0.5rem; /* Jarak antar item menu */
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 0.8rem; /* Kurangi ukuran font menu */
+        padding: 0.4rem 0; /* Kurangi padding menu */
+    }
+
+    .navbar-toggler {
+        font-size: 1rem; /* Sesuaikan ukuran icon toggler */
+        padding: 0.4rem 0.8rem;
+    }
+
+    .navbar-toggler-icon {
+        width: 1.2rem; /* Sesuaikan ukuran icon toggler */
+        height: 1.2rem;
+    }
+
+    /* Dropdown Menu */
+    .navbar .dropdown-menu {
+        font-size: 0.8rem; /* Kurangi ukuran font dropdown */
+        padding: 0.5rem;
+    }
+
+    .navbar .dropdown-item {
+        padding: 0.4rem 0.8rem; /* Kurangi padding item dropdown */
+    }
+
+    /* General adjustments */
+    .navbar-collapse {
+        flex-direction: column; /* Pastikan menu responsif saat dibuka */
+        gap: 0.5rem;
+    }
+}
+
+
+/* Additional adjustments for action buttons in tables */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem; /* Space between buttons */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Chat Section Styles */
+#chat .list-group-item {
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+#chat .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+#chat .meta .name {
+    font-weight: bold;
+    color: #007bff;
+}
+
+#chat .message {
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between arrow and text */
+}
+
+#chat .arrow {
+    font-size: 1.5rem; /* Size of the arrow */
+    color: #28a745; /* Arrow color */
+}
+
+/* Container untuk mengatur tata letak */
+.chat-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    margin: 2rem 0;
+}
+
+/* Bagian form */
+.form-section {
+    flex: 1; /* Memanfaatkan ruang yang tersedia */
+    min-width: 300px; /* Minimum lebar */
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Bagian chat */
+.chat-section {
+    flex: 1; /* Memanfaatkan ruang yang tersedia */
+    min-width: 300px; /* Minimum lebar */
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Untuk perangkat kecil (<= 768px) */
+@media (max-width: 768px) {
+    .chat-container {
+        flex-direction: column; /* Tata letak kembali vertikal */
+        gap: 1rem; /* Jarak antar elemen */
+    }
+}
+
+/* Untuk perangkat sangat kecil (<= 576px) */
+@media (max-width: 576px) {
+    .chat-container {
+        flex-direction: column; /* Tata letak tetap vertikal */
+        gap: 1rem; /* Jarak antar elemen */
+    }
+}
+
+@keyframes spin3D {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+

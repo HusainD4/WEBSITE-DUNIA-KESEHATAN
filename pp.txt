@@ -1,0 +1,505 @@
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+
+import mysql.connector
+from datetime import datetime
+import pymysql
+
+
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Ganti dengan secret key yang aman
+
+# Konfigurasi koneksi MySQL
+db_config = {
+    'host': 'localhost',
+    'user': 'root',  # Ganti dengan user MySQL Anda
+    'password': '',  # Ganti jika menggunakan password
+    'database': 'website_kesehatan'
+}
+
+# Koneksi ke database MySQL
+def get_db_connection():
+    conn = mysql.connector.connect(
+        host=db_config['host'],
+        user=db_config['user'],
+        password=db_config['password'],
+        database=db_config['database']
+    )
+    return conn
+
+# Data login yang valid
+VALID_USERNAME = "husain"
+VALID_PASSWORD = "admin123"
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if username == VALID_USERNAME and password == VALID_PASSWORD:
+            session['logged_in'] = True
+            return redirect(url_for('admin'))
+        else:
+            flash('Username atau password salah!', 'danger')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('Berhasil logout.', 'success')
+    return redirect(url_for('login'))
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    # Cek apakah pengguna sudah login
+    if not session.get('logged_in'):
+        flash('Harap login terlebih dahulu!', 'warning')
+        return redirect(url_for('login'))
+    
+    # Koneksi ke database
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        # Ambil data berita
+        cursor.execute('SELECT * FROM berita ORDER BY tanggal DESC')
+        berita_list = cursor.fetchall()
+
+        # Ambil data penyakit
+        cursor.execute('SELECT * FROM penyakit ORDER BY id DESC')
+        penyakit_list = cursor.fetchall()
+
+        # Ambil data chat publik
+        cursor.execute('SELECT * FROM chat_publik ORDER BY tanggal DESC')
+        chat_list = cursor.fetchall()
+
+        # Ambil data pelanggan langganan
+        cursor.execute('SELECT * FROM langganan ORDER BY tanggal DESC;')
+        pelanggan_list = cursor.fetchall()
+
+        # Debugging tambahan (opsional)
+        app.logger.info("Berita: %s", berita_list)
+        app.logger.info("Penyakit: %s", penyakit_list)
+        app.logger.info("Chat: %s", chat_list)
+        app.logger.info("Pelanggan: %s", pelanggan_list)
+
+    except Exception as e:
+        # Tangani jika ada error saat query
+        app.logger.error("Error saat mengambil data admin: %s", e)
+        flash(f'Terjadi kesalahan: {e}', 'danger')
+        berita_list = []
+        penyakit_list = []
+        chat_list = []
+        pelanggan_list = []
+    finally:
+        # Pastikan koneksi selalu ditutup
+        cursor.close()
+        conn.close()
+
+    # Render halaman admin dengan data
+    return render_template(
+        'admin.html',
+        berita_list=berita_list,
+        penyakit_list=penyakit_list,
+        chat_list=chat_list,
+        pelanggan_list=pelanggan_list
+    )
+
+
+
+
+@app.route('/tambah_chat', methods=['POST'])
+def tambah_chat():
+    if not session.get('logged_in'):
+        flash('Harap login terlebih dahulu!', 'warning')
+        return redirect(url_for('login'))
+
+    email = request.form.get('email', 'Admin@gmail.com')  # Default email jika tidak disediakan
+    pesan = request.form.get('chat_message')
+
+    if pesan:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            'INSERT INTO chat_publik (email, pesan, tanggal) VALUES (%s, %s, NOW())',
+            (email, pesan)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash('Pesan berhasil dikirim!', 'success')
+    else:
+        flash('Pesan tidak boleh kosong.', 'danger')
+
+    return redirect(url_for('admin'))
+
+
+
+@app.route('/hapus_chat/<int:chat_id>', methods=['GET'])
+def hapus_chat(chat_id):
+    if not session.get('logged_in'):
+        flash('Harap login terlebih dahulu!', 'warning')
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM chat_publik WHERE id = %s', (chat_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    flash('Pesan berhasil dihapus.', 'success')
+    return redirect(url_for('admin'))
+
+
+# Route Beranda
+@app.route('/')
+def beranda():
+    # Mengambil berita terbaru dari database
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM berita ORDER BY tanggal DESC LIMIT 4')  # Ambil 5 berita terbaru
+    berita_terbaru = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    print(berita_terbaru)
+    
+    return render_template('beranda.html', berita_terbaru=berita_terbaru)
+
+# Route untuk menambahkan berita (hanya untuk admin)
+@app.route('/tambah_berita', methods=['GET', 'POST'])
+def tambah_berita():
+    if request.method == 'POST':
+        judul = request.form['judul']
+        isi = request.form['isi']
+        penjelasan = request.form['penjelasan']
+        dampak = request.form['dampak']
+        solusi = request.form['solusi']
+        langkah_pemerintah = request.form['langkah_pemerintah']
+        penutup = request.form['penutup']
+        tanggal = datetime.strptime(request.form['tanggal'], "%Y-%m-%dT%H:%M")
+
+        db = get_db_connection()  
+        cursor = db.cursor()
+        query = """
+        INSERT INTO berita (judul, isi, penjelasan, dampak, solusi, langkah_pemerintah, penutup, tanggal)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        values = (judul, isi, penjelasan, dampak, solusi, langkah_pemerintah, penutup, tanggal)
+        cursor.execute(query, values)
+        db.commit()
+        cursor.close()
+        db.close()
+
+        return redirect(url_for('admin'))  # Kembali ke halaman admin setelah menambah berita
+
+    return render_template('tambah_berita.html')
+
+
+
+
+# Route untuk menampilkan berita terkini
+@app.route('/berita-terkini')
+def berita_terkini():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM berita ORDER BY tanggal DESC')  # Mengambil semua berita berdasarkan tanggal terbaru
+    berita_terkini = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    
+    return render_template('berita_terkini.html', berita_terbaru=berita_terkini)
+
+@app.route('/berita/<int:berita_id>')
+def berita_detail(berita_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM berita WHERE id = %s', (berita_id,))  # Mengambil berita berdasarkan id
+    berita = cursor.fetchone()
+    cursor.close()
+    conn.close()
+
+    if berita:
+        return render_template('berita_detail.html', berita=berita)
+    
+    else:
+        return "Berita tidak ditemukan", 404
+
+
+@app.route('/hapus_berita/<int:berita_id>', methods=['GET'])
+def hapus_berita(berita_id):
+    conn = get_db_connection()  # Mendapatkan koneksi database
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM berita WHERE id = %s", (berita_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()  # Jangan lupa menutup koneksi
+    return redirect(url_for('admin'))  # Kembali ke halaman admin setelah menghapus berita
+
+@app.route('/edit_berita/<int:berita_id>', methods=['GET', 'POST'])
+def edit_berita(berita_id):  # Gunakan berita_id untuk konsistensi
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    try:
+        # Ambil data berita berdasarkan ID
+        cursor.execute('SELECT * FROM berita WHERE id = %s', (berita_id,))
+        berita = cursor.fetchone()
+        
+        if not berita:
+            flash('Berita tidak ditemukan.', 'danger')
+            return redirect(url_for('admin'))
+        
+        if request.method == 'POST':
+            # Ambil data dari form
+            judul = request.form['judul']
+            isi = request.form['isi']
+            penjelasan = request.form['penjelasan']
+            dampak = request.form['dampak']
+            solusi = request.form['solusi']
+            langkah_pemerintah = request.form['langkah_pemerintah']
+            penutup = request.form['penutup']
+            tanggal = request.form['tanggal']  # Tambahkan tanggal
+
+            # Update data ke database
+            cursor.execute(
+                '''
+                UPDATE berita
+                SET judul = %s, isi = %s, penjelasan = %s, dampak = %s, solusi = %s, langkah_pemerintah = %s, penutup = %s, tanggal = %s
+                WHERE id = %s
+                ''',
+                (judul, isi, penjelasan, dampak, solusi, langkah_pemerintah, penutup, tanggal, berita_id)
+            )
+            conn.commit()
+            flash('Berita berhasil diperbarui.', 'success')
+            return redirect(url_for('admin'))
+    except Exception as e:
+        flash(f'Error: {e}', 'danger')
+    finally:
+        cursor.close()
+        conn.close()
+    
+    # Pastikan data berita dikirimkan ke template
+    return render_template('edit_berita.html', berita=berita)
+
+
+# Route untuk chat publik
+@app.route('/chat_publik', methods=['GET', 'POST'])
+def chat_publik():
+    if request.method == 'POST':
+        email = request.form.get('email').strip()
+        pesan = request.form.get('pesan').strip()
+        
+        # Validasi input
+        if not email or not pesan:
+            error_message = "Email dan pesan tidak boleh kosong."
+            return render_template('chat_publik.html', error=error_message)
+
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+
+            # Menyisipkan data chat ke dalam tabel
+            cursor.execute(
+                'INSERT INTO chat_publik (email, pesan, tanggal) VALUES (%s, %s, %s)',
+                (email, pesan, datetime.now())
+            )
+            conn.commit()
+        except mysql.connector.Error as e:
+            return render_template('chat_publik.html', error=f"Terjadi kesalahan: {e}")
+        finally:
+            # Menutup koneksi database
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
+
+        # Redirect setelah berhasil menyimpan pesan
+        return redirect(url_for('chat_publik'))
+    
+    # Mengambil parameter order dari query string
+    order = request.args.get('order', 'newest')  
+    order_by = 'DESC' if order == 'newest' else 'ASC'
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Query untuk mengambil chat sesuai urutan
+        cursor.execute(f'SELECT * FROM chat_publik ORDER BY tanggal {order_by}')
+        chats = cursor.fetchall()
+    except mysql.connector.Error as e:
+        return render_template('chat_publik.html', error=f"Terjadi kesalahan: {e}")
+    finally:
+        # Menutup koneksi database
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+    return render_template('chat_publik.html', chats=chats, order=order)
+
+
+# Route untuk berlangganan
+@app.route('/berlangganan', methods=['GET', 'POST'])
+def berlangganan():
+    if request.method == 'POST':
+        try:
+            # Mengambil nilai dari form
+            nama = request.form['nama']
+            email = request.form['email']
+            
+            # Validasi jika ada field yang kosong
+            if not nama or not email:
+                return render_template('berlangganan.html', error="Nama dan email harus diisi.")
+            
+            # Memeriksa apakah email sudah ada dalam database
+            conn = get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute('SELECT * FROM langganan WHERE email = %s', (email,))
+            existing_subscription = cursor.fetchone()
+            
+            if existing_subscription:
+                cursor.close()
+                conn.close()
+                return render_template('berlangganan.html', error="Email sudah terdaftar.")
+            
+            # Menyimpan data berlangganan baru
+            cursor.execute('INSERT INTO langganan (nama, email) VALUES (%s, %s)', (nama, email))
+            conn.commit()  # Pastikan commit dilakukan agar data tersimpan
+            cursor.close()
+            conn.close()
+            return render_template('berlangganan.html', success=True, nama=nama, email=email)
+        
+        except Exception as e:
+            print(f"Error: {e}")
+            return render_template('berlangganan.html', error="Terjadi kesalahan.")
+    return render_template('berlangganan.html')
+
+@app.route('/akhiri_langganan/<int:pelanggan_id>', methods=['GET'])
+def akhiri_langganan(pelanggan_id):
+    try:
+        # Koneksi ke database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Periksa apakah pelanggan dengan ID tersebut ada
+        cursor.execute('SELECT * FROM langganan WHERE id = %s', (pelanggan_id,))
+        pelanggan = cursor.fetchone()
+
+        if not pelanggan:
+            cursor.close()
+            conn.close()
+            flash('Pelanggan tidak ditemukan.', 'danger')
+            return redirect(url_for('admin'))
+
+        # Hapus pelanggan
+        cursor.execute('DELETE FROM langganan WHERE id = %s', (pelanggan_id,))
+        conn.commit()
+        flash('Langganan pelanggan berhasil diakhiri.', 'success')
+
+    except Exception as e:
+        conn.rollback()
+        flash(f'Terjadi kesalahan saat menghapus pelanggan: {e}', 'danger')
+    finally:
+        cursor.close()
+        conn.close()
+
+    # Redirect kembali ke halaman admin
+    return redirect(url_for('admin'))
+
+
+# Route Tentang Kami
+@app.route('/tentang_kami')
+def tentang_kami():
+    return render_template('tentang_kami.html')
+
+# Route Portofolio
+@app.route('/portofolio')
+def portofolio():
+    return render_template('portofolio.html')
+
+@app.route('/informasi_penyakit')
+def informasi_penyakit():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM penyakit')
+    penyakit_list = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    # Debugging output
+    print(penyakit_list)
+
+    return render_template('informasi_penyakit.html', diseases=penyakit_list)
+
+# Route untuk mengedit penyakit
+@app.route('/edit_penyakit/<int:penyakit_id>', methods=['GET', 'POST'])
+def edit_penyakit(penyakit_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    if request.method == 'POST':
+        nama_penyakit = request.form['nama_penyakit']
+        gejala_awal = request.form['gejala_awal']
+        cara_penanganan = request.form['penanganan']
+
+        cursor.execute("""
+            UPDATE penyakit SET nama_penyakit = %s, gejala_awal = %s, cara_penanganan = %s
+            WHERE id = %s
+        """, (nama_penyakit, gejala_awal, cara_penanganan, penyakit_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return redirect(url_for('admin'))
+
+    cursor.execute('SELECT * FROM penyakit WHERE id = %s', (penyakit_id,))
+    penyakit = cursor.fetchone()
+    cursor.close()
+    conn.close()
+
+    return render_template('edit_penyakit.html', penyakit=penyakit)
+
+
+# Route untuk menghapus penyakit
+@app.route('/hapus_penyakit/<int:penyakit_id>', methods=['GET'])
+def hapus_penyakit(penyakit_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM penyakit WHERE id = %s", (penyakit_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('admin'))  
+
+
+@app.route('/tambah_penyakit', methods=['GET', 'POST'])
+def tambah_penyakit():
+    if request.method == 'POST':
+        nama_penyakit = request.form['nama_penyakit']
+        gejala_awal = request.form['gejala_awal']
+        cara_penanganan = request.form['penanganan']
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO penyakit (nama_penyakit, gejala_awal, cara_penanganan) VALUES (%s, %s, %s)', 
+                       (nama_penyakit, gejala_awal, cara_penanganan))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return redirect(url_for('admin'))
+
+    return render_template('tambah_penyakit.html')
+
+
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,67 @@
+.table-box {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.table-responsive-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.action-buttons .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 576px) {
+    .action-buttons .btn {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+.logout-btn {
+    margin-top: 20px;
+}
+
+
+
+/* Tab navigation */
+.nav-tabs {
+    border-bottom: 2px solid #ddd;
+}
+
+.nav-tabs .nav-link {
+    border-radius: 0;
+    padding: 10px 15px;
+    font-weight: 600;
+    color: #28a745; /* Warna hijau untuk tab */
+    background-color: transparent; /* Latar belakang transparan untuk tab */
+    border: none; /* Menghilangkan border default */
+}
+
+.nav-tabs .nav-link:hover {
+    color: white; /* Mengubah warna teks menjadi putih saat hover */
+    background-color: #164620; /* Warna hijau gelap saat hover */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #5a9167; /* Warna hijau terang untuk tab aktif */
+    color: white; /* Teks putih untuk tab aktif */
+    border-color: #28a745; /* Border hijau untuk tab aktif */
+}
+
+.nav-item {
+    margin-right: 10px;
+}

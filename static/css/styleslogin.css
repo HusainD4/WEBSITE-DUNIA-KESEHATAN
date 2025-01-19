@@ -1,0 +1,134 @@
+/* styleslogin.css */
+
+/* Menetapkan font default */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex; /* Menggunakan Flexbox */
+    justify-content: center; /* Menyelaraskan konten secara horizontal ke tengah */
+    align-items: center; /* Menyelaraskan konten secara vertikal ke tengah */
+    animation: colorChange 5s ease-in-out infinite; /* Animasi background dengan perulangan */
+}
+
+/* Animasi perubahan warna latar belakang */
+@keyframes colorChange {
+    0% {
+        background-color: #28a745; /* Hijau muda */
+    }
+    50% {
+        background-color: #2d7551; /* Hijau tua */
+    }
+    100% {
+        background-color: #28a745; /* Kembali ke hijau muda */
+    }
+}
+
+/* Mengatur tampilan container form login */
+.container {
+    background: rgba(0, 77, 38, 0.9); /* Hijau tua dengan transparansi */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    color: #ffffff; /* Teks berwarna putih agar kontras dengan latar belakang */
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px; /* Mengatur lebar maksimal agar tidak terlalu besar */
+}
+
+/* Pengaturan judul */
+h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Pengaturan label input */
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Pengaturan input fields */
+input[type="text"],
+input[type="password"] {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Pengaturan tombol login */
+button[type="submit"] {
+    background-color: #28a745; /* Hijau untuk tombol login */
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838; /* Hijau lebih gelap ketika hover */
+    transform: translateY(-5px); /* Efek hover naik sedikit */
+}
+
+/* Pengaturan tombol kembali ke beranda */
+a.btn-light {
+    color: #28a745;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #28a745;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+a.btn-light:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Pengaturan alert message */
+.alert {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Responsif */
+@media (max-width: 576px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 16px;
+        padding: 12px;
+    }
+    
+    button[type="submit"], 
+    a.btn-light {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

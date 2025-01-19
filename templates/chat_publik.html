@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Publik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <header class="text-center py-5">
+        <h1><i class="fas fa-comments"></i> Chat Publik</h1>
+        <p>Gunakan chat ini dengan bijak tanpa mengandung SARA atau konten negatif.</p>
+    </header>
+
+    <section id="chat" class="container py-5">
+<!-- Form Kirim Pesan -->
+<div class="chat-container">
+    <div class="form-section">
+        <h2><i class="fas fa-paper-plane" style="padding-bottom: 25px;"></i> Kirim Pesan</h2>
+        <form action="/chat_publik" method="POST" style="padding-bottom: 30px;">
+            <input type="email" name="email" class="form-control mb-3" placeholder="Email Anda" required>
+            <textarea name="pesan" class="form-control mb-3" placeholder="Tulis pesan Anda..." required></textarea>
+            <button type="submit" class="btn btn-success">Kirim</button>
+        </form>
+    </div>
+    <div class="chat-section">
+        <h3>Pesan Terkini:</h3>
+        <select id="filter-order" class="form-select" onchange="updateChatOrder(this.value)" style="padding-bottom: 15px;">
+            <option value="newest" {% if order == 'newest' %}selected{% endif %}>Chat Terbaru</option>
+            <option value="oldest" {% if order == 'oldest' %}selected{% endif %}>Chat Terlama</option>
+        </select>
+        <ul id="chat-list" class="list-group" style="padding-top: 20px;">
+            {% for chat in chats %}
+                <li class="list-group-item" data-timestamp="{{ chat.timestamp }}">
+                    <div class="meta">
+                        <span class="name">{{ chat.email }}</span>
+                        <span class="date" style="font-size: 9px;">{{ chat.tanggal }}</span>
+                    </div>
+                    <div class="message">
+                        <span class="arrow">↪</span> {{ chat.pesan }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+
+    </section>
+
+
+    {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateChatOrder(order) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('order', order); // Menambahkan/memperbarui parameter 'order'
+            window.location.href = url.toString(); // Redirect ke URL baru
+        }
+    </script>
+
+</body>
+</html>

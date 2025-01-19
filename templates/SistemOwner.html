@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Owner - Sistem Pengguna</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Manajemen Pengguna</h2>
+        <!-- Pesan Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div>
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Tombol Tambah Pengguna -->
+        <div class="mb-3 text-end">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah Pengguna</button>
+        </div>
+
+        <!-- Tabel Pengguna -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Jabatan</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.ID_user }}</td>
+                        <td>{{ user.Username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.jabatan }}</td>
+                        <td>
+                            <!-- Tombol Edit -->
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="{{ user.ID_user }}" data-username="{{ user.Username }}" data-email="{{ user.email }}" data-jabatan="{{ user.jabatan }}">Edit</button>
+                            <!-- Tombol Hapus -->
+                            <form action="{{ url_for('delete_user', user_id=user.ID_user) }}" method="POST" style="display:inline;">
+                                <!-- CSRF Token untuk Keamanan -->
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Tambah Pengguna -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">Tambah Pengguna</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('add_user') }}" method="POST">
+                        <!-- CSRF Token untuk Keamanan -->
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <select class="form-control" id="jabatan" name="jabatan" required>
+                                <option value="Admin">Admin</option>
+                                <option value="Owner">Owner</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah Pengguna</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Pengguna -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit Pengguna</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('edit_user') }}" method="POST">
+                        <!-- CSRF Token untuk Keamanan -->
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" id="editUserID" name="user_id">
+                        <div class="mb-3">
+                            <label for="editUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="editUsername" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editJabatan" class="form-label">Jabatan</label>
+                            <select class="form-control" id="editJabatan" name="jabatan" required>
+                                <option value="Admin">Admin</option>
+                                <option value="Owner">Owner</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="editPassword" name="password">
+                            <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah password.</small>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Update Pengguna</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script untuk mengisi data modal edit berdasarkan tombol yang ditekan
+        $('#editUserModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var userID = button.data('id');
+            var username = button.data('username');
+            var email = button.data('email');
+            var jabatan = button.data('jabatan');
+            
+            var modal = $(this);
+            modal.find('#editUserID').val(userID);
+            modal.find('#editUsername').val(username);
+            modal.find('#editEmail').val(email);
+            modal.find('#editJabatan').val(jabatan);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

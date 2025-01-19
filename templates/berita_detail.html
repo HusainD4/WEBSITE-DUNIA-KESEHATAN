@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ berita['judul'] }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <header class="text-center py-5">
+        <h1><i class="fas fa-headline" style="border-radius: 15px;"></i> {{ berita['judul'] }}</h1>
+    </header>
+
+    <section id="berita" class="container py-5">
+        <div class="mb-4">
+            <h2><i class="fas fa-exclamation-triangle" style="border-radius: 15px;"></i> {{ berita['judul'] }}</h2>
+            <p>{{ berita['isi'] }}</p>
+        </div>
+
+        <div class="mb-4 border rounded p-4">
+            <h3 class="text-white bg-primary text-center py-2" style="border-radius: 15px; text-align: justify;">Penjelasan Lebih Lanjut tentang {{ berita['judul'] }}</h3>
+            <p style="border-radius: 15px; text-align: justify;">{{ berita['penjelasan'] }}</p>
+        </div>
+
+        <div class="mb-4 border rounded p-4">
+            <h3 class="text-white bg-primary text-center py-2" style="border-radius: 15px; text-align: justify;">Dampak {{ berita['judul'] }} pada Anak</h3>
+            <p style="border-radius: 15px; text-align: justify;">{{ berita['dampak'] }}</p>
+        </div>
+
+        <div class="mb-4 border rounded p-4">
+            <h3 class="text-white bg-primary text-center py-2" style="border-radius: 15px; text-align: justify;">Cara Menanggulangi {{ berita['judul'] }}</h3>
+            <p style="border-radius: 15px; text-align: justify;">{{ berita['solusi'] }}</p>
+        </div>
+
+        <div class="mb-4 border rounded p-4">
+            <h3 class="text-white bg-primary text-center py-2" style="border-radius: 15px; text-align: justify;">Langkah Pemerintah dalam Menanggulangi {{ berita['judul'] }}</h3>
+            <p style="border-radius: 15px; text-align: justify;">{{ berita['langkah_pemerintah'] }}</p>
+        </div>
+
+        <div class="mt-4">
+            <p style="border-radius: 15px; text-align: justify;">{{ berita['penutup'] }}</p>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlangganan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/styleberlangganan.css">
+
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <!-- Header dengan Logo Animasi -->
+    <div class="text-center my-4" style="padding-top: 40px;">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Website" class="img-fluid animated-logo" style="max-width: 200px;">
+    </div>
+
+    <div class="container mt-5" style="padding-bottom: 45px;">
+        <h1>Berlangganan</h1>
+        <p>Daftar untuk mendapatkan berita dan tips kesehatan terbaru.</p>
+
+        <!-- Pesan sukses -->
+        {% if success %}
+        <div class="alert alert-success mt-4" role="alert">
+            Terimakasih {{ nama }} dengan email {{ email }} telah berlangganan kepada kami!
+        </div>
+        {% endif %}
+
+        <!-- Pesan error -->
+        {% if error %}
+        <div class="alert alert-danger mt-4" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <!-- Form Berlangganan -->
+        <form method="POST">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="nama" placeholder="Nama Anda" value="{{ request.form['nama'] if request.form['nama'] else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <input type="email" class="form-control" name="email" placeholder="Email Anda" value="{{ request.form['email'] if request.form['email'] else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Berlangganan</button>
+        </form>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita Terkini: Bahaya Stunting</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <header class="text-center py-5">
+        <h1><i class="fas fa-headline"></i> Berita Hangat: Bahaya Stunting</h1>
+    </header>
+
+    <section id="berita" class="container py-5">
+        <h2><i class="fas fa-exclamation-triangle"></i> Bahaya Stunting</h2>
+        <p><strong>Stunting</strong> adalah masalah kurang gizi kronis yang terjadi pada anak-anak, terutama pada usia 0-5 tahun. Stunting mengarah pada kekerdilan fisik yang dapat mempengaruhi perkembangan otak dan kemampuan belajar anak. Kondisi ini terjadi akibat kekurangan gizi yang cukup dalam jangka waktu yang lama, khususnya pada masa-masa awal kehidupan anak. Stunting tidak hanya berdampak pada kesehatan anak, tetapi juga dapat mempengaruhi perkembangan mental dan kemampuan kognitifnya.</p>
+
+        <div class="border rounded p-4 mb-4">
+            <h3 class="text-center text-white bg-primary py-2">Penjelasan Lebih Lanjut tentang Stunting</h3>
+            <p>Stunting disebabkan oleh berbagai faktor yang saling terkait, di antaranya adalah:</p>
+            <ul>
+                <li><strong>Kekurangan Asupan Gizi</strong>: Asupan gizi yang kurang pada ibu hamil atau anak yang masih dalam masa pertumbuhan dapat menyebabkan masalah stunting. Ibu yang tidak mendapatkan gizi yang cukup selama kehamilan dapat melahirkan bayi dengan risiko stunting yang lebih tinggi.</li>
+                <li><strong>Infeksi dan Penyakit Menular</strong>: Anak yang sering sakit, seperti diare atau infeksi saluran pernapasan, berisiko tinggi mengalami stunting karena tubuhnya kehilangan banyak nutrisi yang dibutuhkan untuk pertumbuhan.</li>
+                <li><strong>Akses Terbatas ke Makanan Bergizi</strong>: Di beberapa daerah, terutama di pedesaan atau daerah miskin, akses terhadap makanan yang bergizi cukup terbatas. Kurangnya pengetahuan masyarakat tentang pentingnya asupan gizi juga berperan besar dalam memperburuk masalah ini.</li>
+                <li><strong>Faktor Sosial dan Ekonomi</strong>: Faktor ekonomi dan sosial keluarga, seperti rendahnya pendapatan, pendidikan rendah orang tua, dan kurangnya perhatian terhadap kesehatan anak, juga menjadi penyebab utama stunting.</li>
+            </ul>
+        </div>
+
+        <div class="border rounded p-4 mb-4">
+            <h3 class="text-center text-white bg-primary py-2">Dampak Stunting pada Anak</h3>
+            <p>Stunting memiliki dampak jangka panjang yang dapat mempengaruhi kesehatan fisik, perkembangan mental, dan kualitas hidup anak. Berikut adalah beberapa dampaknya:</p>
+            <ul>
+                <li><strong>Gangguan Perkembangan Otak</strong>: Stunting dapat mempengaruhi perkembangan otak anak, yang berakibat pada kemampuan kognitifnya. Anak-anak dengan stunting cenderung memiliki kecerdasan yang lebih rendah dan kesulitan dalam belajar.</li>
+                <li><strong>Kekebalan Tubuh Menurun</strong>: Anak-anak yang mengalami stunting lebih rentan terhadap infeksi dan penyakit, karena tubuh mereka tidak berkembang secara optimal.</li>
+                <li><strong>Gangguan Fisik</strong>: Selain tinggi badan yang lebih pendek, anak-anak dengan stunting sering mengalami masalah kesehatan lainnya, seperti anemia dan gangguan pertumbuhan yang berdampak pada kemampuan motoriknya.</li>
+                <li><strong>Potensi Ekonomi yang Hilang</strong>: Anak-anak yang mengalami stunting berisiko untuk tumbuh menjadi individu dengan produktivitas rendah di masa depan, yang dapat mempengaruhi ekonomi keluarga dan negara.</li>
+            </ul>
+        </div>
+
+        <div class="border rounded p-4 mb-4">
+            <h3 class="text-center text-white bg-primary py-2">Cara Menanggulangi Stunting</h3>
+            <p>Untuk mengurangi angka stunting di Indonesia, berbagai langkah perlu dilakukan baik di tingkat keluarga, masyarakat, maupun pemerintah. Berikut adalah beberapa cara yang bisa dilakukan:</p>
+            <ul>
+                <li><strong>Peningkatan Asupan Gizi Ibu Hamil dan Anak</strong>: Program pemberian makanan tambahan bagi ibu hamil dan anak balita sangat penting untuk mendukung pertumbuhan dan perkembangan yang sehat.</li>
+                <li><strong>Memberikan Edukasi kepada Masyarakat</strong>: Sosialisasi kepada orang tua, terutama ibu, mengenai pentingnya gizi yang seimbang selama masa kehamilan dan masa pertumbuhan anak perlu ditingkatkan. Edukasi ini juga harus mencakup cara menjaga kebersihan dan kesehatan anak untuk menghindari infeksi yang memperburuk kondisi stunting.</li>
+                <li><strong>Program Penyuluhan Gizi</strong>: Pemerintah dan organisasi kesehatan perlu menyediakan program penyuluhan gizi di daerah-daerah rawan stunting untuk memastikan bahwa keluarga mendapatkan informasi yang tepat tentang pemenuhan kebutuhan gizi anak-anak mereka.</li>
+                <li><strong>Perbaikan Akses ke Air Bersih dan Sanitasi</strong>: Penyediaan air bersih dan fasilitas sanitasi yang layak sangat penting untuk mencegah diare dan penyakit lainnya yang dapat menyebabkan stunting.</li>
+                <li><strong>Memperbaiki Akses Kesehatan</strong>: Peningkatan pelayanan kesehatan di daerah terpencil dan pemberian imunisasi yang tepat waktu dapat mengurangi infeksi yang menjadi salah satu penyebab stunting.</li>
+            </ul>
+        </div>
+
+        <div class="border rounded p-4 mb-4">
+            <h3 class="text-center text-white bg-primary py-2">Langkah Pemerintah dalam Menanggulangi Stunting</h3>
+            <p>Stunting telah menjadi perhatian utama pemerintah Indonesia dalam beberapa tahun terakhir. Pemerintah telah meluncurkan berbagai program untuk mengurangi angka stunting, seperti:</p>
+            <ul>
+                <li><strong>Program Keluarga Harapan (PKH)</strong>: Program ini memberikan bantuan sosial kepada keluarga miskin untuk memastikan mereka dapat memenuhi kebutuhan dasar, termasuk gizi yang cukup untuk ibu hamil dan anak-anak mereka.</li>
+                <li><strong>Program Pemberian Makanan Tambahan (PMT)</strong>: Program ini memberikan makanan bergizi bagi anak-anak yang mengalami kekurangan gizi di berbagai wilayah Indonesia.</li>
+                <li><strong>Pembangunan Infrastruktur Sanitasi dan Air Bersih</strong>: Pemerintah bekerja untuk memastikan bahwa masyarakat di seluruh Indonesia memiliki akses yang memadai terhadap air bersih dan sanitasi yang layak, yang dapat mengurangi risiko penyakit infeksi.</li>
+            </ul>
+        </div>
+
+        <p>Stunting adalah masalah serius yang memerlukan perhatian dan tindakan kolektif. Dengan dukungan dari pemerintah, masyarakat, dan keluarga, kita dapat mengurangi angka stunting dan meningkatkan kualitas hidup generasi mendatang.</p>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
